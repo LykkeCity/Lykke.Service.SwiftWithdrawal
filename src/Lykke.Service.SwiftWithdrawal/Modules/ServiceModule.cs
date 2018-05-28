@@ -1,6 +1,10 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AzureStorage.Tables;
 using Common.Log;
+using Lykke.Service.SwiftWithdrawal.AzureRepositories;
+using Lykke.Service.SwiftWithdrawal.Core.Domain;
+using Lykke.Service.SwiftWithdrawal.Core.Domain.Cashout;
 using Lykke.Service.SwiftWithdrawal.Core.Services;
 using Lykke.Service.SwiftWithdrawal.Settings.ServiceSettings;
 using Lykke.Service.SwiftWithdrawal.Services;
@@ -13,25 +17,15 @@ namespace Lykke.Service.SwiftWithdrawal.Modules
     {
         private readonly IReloadingManager<SwiftWithdrawalSettings> _settings;
         private readonly ILog _log;
-        // NOTE: you can remove it if you don't need to use IServiceCollection extensions to register service specific dependencies
-        private readonly IServiceCollection _services;
 
         public ServiceModule(IReloadingManager<SwiftWithdrawalSettings> settings, ILog log)
         {
             _settings = settings;
             _log = log;
-
-            _services = new ServiceCollection();
         }
 
         protected override void Load(ContainerBuilder builder)
         {
-            // TODO: Do not register entire settings in container, pass necessary settings to services which requires them
-            // ex:
-            //  builder.RegisterType<QuotesPublisher>()
-            //      .As<IQuotesPublisher>()
-            //      .WithParameter(TypedParameter.From(_settings.CurrentValue.QuotesPublication))
-
             builder.RegisterInstance(_log)
                 .As<ILog>()
                 .SingleInstance();
@@ -46,9 +40,27 @@ namespace Lykke.Service.SwiftWithdrawal.Modules
             builder.RegisterType<ShutdownManager>()
                 .As<IShutdownManager>();
 
-            // TODO: Add your dependencies here
+            RegisterRepositories(builder);
+        }
 
-            builder.Populate(_services);
+        private void RegisterRepositories(ContainerBuilder builder)
+        {
+            builder.RegisterInstance<IWithdrawLimitsRepository>(
+                new WithdrawLimitsRepository(
+                    AzureTableStorage<WithdrawLimitRecord>.Create(_settings.ConnectionString(x => x.Db.ClientPersonalInfoConnString), "WithdrawLimits", _log),
+                    _settings.CurrentValue.DefaultWithdrawalLimit));
+
+            builder.RegisterInstance<ICashoutAttemptRepository>(
+                new CashoutAttemptRepository(
+                    AzureTableStorage<CashoutAttemptEntity>.Create(_settings.ConnectionString(x => x.Db.BalancesInfoConnString), "CashOutAttempt", _log)));
+
+            builder.RegisterInstance<ICashoutRequestLogRepository>(
+                new CashoutRequestLogRepository(
+                    AzureTableStorage<CashoutRequestLogRecord>.Create(_settings.ConnectionString(x => x.Db.BalancesInfoConnString), "CashOutAttemptLog", _log)));
+
+            builder.RegisterInstance<ICashoutPaymentDateRepository>(
+                new CashoutPaymentDateRepository(
+                    AzureTableStorage<CashoutPaymentDateEntity>.Create(_settings.ConnectionString(x => x.Db.BalancesInfoConnString), "CashoutPaymentDates", _log)));
         }
     }
 }

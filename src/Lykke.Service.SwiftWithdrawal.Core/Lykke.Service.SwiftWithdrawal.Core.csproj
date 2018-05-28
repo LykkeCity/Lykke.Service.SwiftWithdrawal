@@ -8,12 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="Lykke.Common" Version="6.8.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lykke.Common" Version="6.6.0" />
+    <ProjectReference Include="..\Lykke.Service.SwiftWithdrawal.Contracts\Lykke.Service.SwiftWithdrawal.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

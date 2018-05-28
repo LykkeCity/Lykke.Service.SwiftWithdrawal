@@ -6,5 +6,7 @@ namespace Lykke.Service.SwiftWithdrawal.Settings.ServiceSettings
     public class SwiftWithdrawalSettings
     {
         public DbSettings Db { get; set; }
+
+        public double DefaultWithdrawalLimit { get; set; }
     }
 }
