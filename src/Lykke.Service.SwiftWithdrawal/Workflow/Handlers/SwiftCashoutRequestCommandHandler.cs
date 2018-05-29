@@ -35,7 +35,7 @@ namespace Lykke.Service.SwiftWithdrawal.Workflow.Handlers
                 AccountId = command.AccountId,
                 State = command.State,
                 Status = CashoutRequestStatus.Pending,
-                VolumeSize = await FillVoluemSize(command.AssetId, amount)
+                VolumeSize = await FillVolumeSize(command.AssetId, amount)
             };
 
             var inserted = await _cashoutAttemptRepository.TryInsertAsync(command.Id, model, PaymentSystem.Swift, command.SwiftData, command.TradeSystem);
@@ -65,7 +65,7 @@ namespace Lykke.Service.SwiftWithdrawal.Workflow.Handlers
 
 
 
-        private async Task<CashoutVolumeSize> FillVoluemSize(string assetId, double amount)
+        private async Task<CashoutVolumeSize> FillVolumeSize(string assetId, double amount)
         {
             return (await _withdrawLimitsRepository.GetLimitByAssetAsync(assetId)) <= amount
                 ? CashoutVolumeSize.High

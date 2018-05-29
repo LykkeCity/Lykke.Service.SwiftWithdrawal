@@ -47,8 +47,16 @@ namespace Lykke.Service.SwiftWithdrawal.Modules
                 environment: "lykke",
                 exclusiveQueuePostfix: "k8s");
 
+            builder.RegisterType<SwiftCashoutRequestCommandHandler>().SingleInstance();
+            builder.RegisterType<SwiftStateChangedProjection>().SingleInstance();
+
+
+
             builder.Register(ctx =>
             {
+                string commandsRoute = "commands";
+                string eventsRoute = "events";
+
                 return new CqrsEngine(_log,
                     ctx.Resolve<IDependencyResolver>(),
                     messagingEngine,
@@ -58,10 +66,14 @@ namespace Lykke.Service.SwiftWithdrawal.Modules
 
                     Register.BoundedContext(SwiftWithdrawalBoundedContext.Name)
                         .ListeningCommands(typeof(SwiftCashoutCreateCommand))
-                        .On("commands")
+                        .On(commandsRoute)
                         .WithCommandsHandler<SwiftCashoutRequestCommandHandler>()
                         .PublishingEvents(typeof(SwiftCashoutCreatedEvent), typeof(SwiftCashoutStateChangedEvent))
-                        .With("events")
+                        .With(eventsRoute)
+
+                        .ListeningEvents(typeof(SwiftCashoutStateChangedEvent))
+                        .From(SwiftWithdrawalBoundedContext.Name)
+                        .On(eventsRoute)
                         .WithProjection(typeof(SwiftStateChangedProjection), SwiftWithdrawalBoundedContext.Name));
 
             })

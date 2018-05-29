@@ -63,6 +63,7 @@ namespace Lykke.Service.SwiftWithdrawal
                 Log = CreateLogWithSlack(services, appSettings);
 
                 builder.RegisterModule(new ServiceModule(appSettings.Nested(x => x.SwiftWithdrawalService), Log));
+                builder.RegisterModule(new ClientModule(appSettings, Log));
                 builder.RegisterModule(new CqrsModule(appSettings, Log));
 
                 builder.Populate(services);

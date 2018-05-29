@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using AzureStorage.Tables;
 using Common.Log;
 using Lykke.Service.SwiftWithdrawal.AzureRepositories;
@@ -9,7 +8,6 @@ using Lykke.Service.SwiftWithdrawal.Core.Services;
 using Lykke.Service.SwiftWithdrawal.Settings.ServiceSettings;
 using Lykke.Service.SwiftWithdrawal.Services;
 using Lykke.SettingsReader;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Lykke.Service.SwiftWithdrawal.Modules
 {

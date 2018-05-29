@@ -13,13 +13,11 @@ namespace Lykke.Service.SwiftWithdrawal.Workflow.Projections
     {
         private readonly ICashoutRequestLogRepository _cashoutRequestLogRepository;
         private readonly IPersonalDataService _personalDataService;
-        private readonly ChaosKitty _chaosKitty;
 
-        public SwiftStateChangedProjection(ICashoutRequestLogRepository cashoutRequestLogRepository, IPersonalDataService personalDataService, ChaosKitty chaosKitty)
+        public SwiftStateChangedProjection(ICashoutRequestLogRepository cashoutRequestLogRepository, IPersonalDataService personalDataService)
         {
             _cashoutRequestLogRepository = cashoutRequestLogRepository;
             _personalDataService = personalDataService;
-            _chaosKitty = chaosKitty;
         }
 
         public async Task Handle(SwiftCashoutStateChangedEvent evt)
@@ -27,8 +25,6 @@ namespace Lykke.Service.SwiftWithdrawal.Workflow.Projections
             var client = await _personalDataService.GetAsync(evt.ClientId);
 
             await _cashoutRequestLogRepository.AddRecordAsync(evt.Changer, evt.RequestId, client.FullName, client.Email, evt.Status, evt.VolumeSize);
-
-            _chaosKitty.Meow(evt.RequestId);
         }
     }
 }
