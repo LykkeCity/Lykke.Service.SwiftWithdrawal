@@ -82,19 +82,5 @@ namespace Lykke.Service.SwiftWithdrawal.AzureRepositories
             var record = CashoutRequestLogRecord.Create(changer, requestId, clientName, clientEmail, status, volumeSize);
             await _tableStorage.InsertAndGenerateRowKeyAsDateTimeAsync(record, record.CreationTime);
         }
-
-        public async Task<IEnumerable<ICashoutRequestLogItem>> GetRecords(string requestId)
-        {
-            var pk = CashoutRequestLogRecord.GeneratePartitionKey(requestId);
-            var records = await _tableStorage.GetDataAsync(pk);
-            return records;
-        }
-
-        public async Task<IEnumerable<ICashoutRequestLogItem>> GetRecords(IEnumerable<string> requestIds)
-        {
-            var pks = requestIds.Select(CashoutRequestLogRecord.GeneratePartitionKey);
-            var records = await _tableStorage.GetDataAsync(pks);
-            return records;
-        }
     }
 }

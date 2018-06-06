@@ -9,22 +9,22 @@ using Lykke.Service.SwiftWithdrawal.Core.Domain.Cashout;
 
 namespace Lykke.Service.SwiftWithdrawal.Workflow.Projections
 {
-    public class SwiftStateChangedProjection
+    public class SwiftRequestLogProjection
     {
         private readonly ICashoutRequestLogRepository _cashoutRequestLogRepository;
         private readonly IPersonalDataService _personalDataService;
 
-        public SwiftStateChangedProjection(ICashoutRequestLogRepository cashoutRequestLogRepository, IPersonalDataService personalDataService)
+        public SwiftRequestLogProjection(ICashoutRequestLogRepository cashoutRequestLogRepository, IPersonalDataService personalDataService)
         {
             _cashoutRequestLogRepository = cashoutRequestLogRepository;
             _personalDataService = personalDataService;
         }
 
-        public async Task Handle(SwiftCashoutStateChangedEvent evt)
+        public async Task Handle(SwiftCashoutCreatedEvent evt)
         {
             var client = await _personalDataService.GetAsync(evt.ClientId);
 
-            await _cashoutRequestLogRepository.AddRecordAsync(evt.Changer, evt.RequestId, client.FullName, client.Email, evt.Status, evt.VolumeSize);
+            await _cashoutRequestLogRepository.AddRecordAsync("Client", evt.RequestId, client.FullName, client.Email, CashoutRequestStatus.Pending, evt.VolumeSize);
         }
     }
 }

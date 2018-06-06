@@ -20,7 +20,5 @@ namespace Lykke.Service.SwiftWithdrawal.Core.Domain.Cashout
     public interface ICashoutRequestLogRepository
     {
         Task AddRecordAsync(string changer, string requestId, string clientName, string clientEmail, CashoutRequestStatus status, CashoutVolumeSize volumeSize);
-        Task<IEnumerable<ICashoutRequestLogItem>> GetRecords(string requestId);
-        Task<IEnumerable<ICashoutRequestLogItem>> GetRecords(IEnumerable<string> requestIds);
     }
 }

@@ -55,10 +55,6 @@ namespace Lykke.Service.SwiftWithdrawal.Modules
             builder.RegisterInstance<ICashoutRequestLogRepository>(
                 new CashoutRequestLogRepository(
                     AzureTableStorage<CashoutRequestLogRecord>.Create(_settings.ConnectionString(x => x.Db.BalancesInfoConnString), "CashOutAttemptLog", _log)));
-
-            builder.RegisterInstance<ICashoutPaymentDateRepository>(
-                new CashoutPaymentDateRepository(
-                    AzureTableStorage<CashoutPaymentDateEntity>.Create(_settings.ConnectionString(x => x.Db.BalancesInfoConnString), "CashoutPaymentDates", _log)));
         }
     }
 }

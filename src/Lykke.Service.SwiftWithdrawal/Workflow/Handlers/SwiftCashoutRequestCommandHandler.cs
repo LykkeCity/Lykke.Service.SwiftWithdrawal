@@ -42,21 +42,14 @@ namespace Lykke.Service.SwiftWithdrawal.Workflow.Handlers
 
             if (inserted)
             {
-                eventPublisher.PublishEvent(new SwiftCashoutStateChangedEvent
-                {
-                    Changer = "Client",
-                    ClientId = command.ClientId,
-                    RequestId = command.Id,
-                    Status = model.Status,
-                    VolumeSize = model.VolumeSize
-                });
-
                 eventPublisher.PublishEvent(new SwiftCashoutCreatedEvent
                 {
                     Volume = command.Volume,
                     AssetId = command.AssetId,
                     ClientId = command.ClientId,
-                    TradeSystem = command.TradeSystem
+                    TradeSystem = command.TradeSystem,
+                    RequestId = command.Id,
+                    VolumeSize = model.VolumeSize
                 });
             }
 
