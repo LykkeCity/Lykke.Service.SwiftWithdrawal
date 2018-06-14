@@ -11,6 +11,7 @@ namespace Lykke.Service.SwiftWithdrawal.Core.Domain.Cashout
         string AssetId { get; }
         string ClientId { get; }
         double Amount { get; }
+        double FeeSize { get; }
         DateTime DateTime { get; }
         bool IsHidden { get; }
         string PaymentSystem { get; }
@@ -36,6 +37,7 @@ namespace Lykke.Service.SwiftWithdrawal.Core.Domain.Cashout
         public TransactionState State { get; set; }
         public CashoutRequestTradeSystem TradeSystem { get; set; }
         public double Amount { get; set; }
+        public double FeeSize { get; set; }
         public DateTime DateTime { get; set; }
         public bool IsHidden { get; set; }
         public string AccountId { get; set; }

@@ -16,6 +16,7 @@ namespace Lykke.Service.SwiftWithdrawal.Contracts
         public string BankName { get; set; }
 
         public string AccHolderCountry { get; set; }
+        public string AccHolderCountryCode { get; set; }
         public string AccHolderZipCode { get; set; }
         public string AccHolderCity { get; set; }
     }
