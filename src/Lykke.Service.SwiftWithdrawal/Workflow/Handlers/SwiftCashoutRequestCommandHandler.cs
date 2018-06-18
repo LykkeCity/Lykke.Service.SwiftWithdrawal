@@ -33,7 +33,7 @@ namespace Lykke.Service.SwiftWithdrawal.Workflow.Handlers
                 ClientId = command.ClientId,
                 AssetId = command.AssetId,
                 Amount = amount,
-                FeeSize = (double)feeSize,
+                FeeSize = feeSize,
                 AccountId = command.AccountId,
                 State = command.State,
                 Status = CashoutRequestStatus.Pending,
