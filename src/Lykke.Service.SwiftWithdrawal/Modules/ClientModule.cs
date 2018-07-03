@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
+﻿using Autofac;
 using Common.Log;
+using Lykke.Service.PersonalData;
 using Lykke.Service.PersonalData.Client;
-using Lykke.Service.SwiftWithdrawal.Core.Services;
-using Lykke.Service.SwiftWithdrawal.Services;
+using Lykke.Service.PersonalData.Contract;
 using Lykke.Service.SwiftWithdrawal.Settings;
-using Lykke.Service.SwiftWithdrawal.Settings.ServiceSettings;
 using Lykke.SettingsReader;
 
 namespace Lykke.Service.SwiftWithdrawal.Modules
@@ -25,7 +21,7 @@ namespace Lykke.Service.SwiftWithdrawal.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterPersonalDataServiceClient(_settings.CurrentValue.PersonalDataServiceClient, _log);
+            builder.RegisterInstance<IPersonalDataService>(new PersonalDataService(_settings.CurrentValue.PersonalDataServiceClient, _log));
         }
     }
 }

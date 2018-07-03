@@ -16,14 +16,6 @@ namespace Lykke.Service.SwiftWithdrawal.Settings
         [Optional]
         public MonitoringServiceClientSettings MonitoringServiceClient { get; set; }
 
-        public SagasRabbitMq SagasRabbitMq { get; set; }
-
         public PersonalDataServiceClientSettings PersonalDataServiceClient { get; set; }
-    }
-    
-    public class SagasRabbitMq
-    {
-        [AmqpCheck]
-        public string RabbitConnectionString { get; set; }
     }
 }
