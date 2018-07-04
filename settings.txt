@@ -5,7 +5,7 @@
       "BalancesInfoConnString": "${BalancesInfoConnString}:[AzureTableStorage]",
       "ClientPersonalInfoConnString": "${PersonalInfoConnString}:[AzureTableStorage]"
     },
-    "DefaultWithdrawalLimit": 14500,
+    "DefaultWithdrawalLimit": ${SwiftWithdrawalService-DefaultWithdrawalLimit},
     "Cqrs": {
       "RabbitConnectionString": "${CqrsRabbitConnString}:[RabbitMq]"
     }
