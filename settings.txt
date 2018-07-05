@@ -19,7 +19,7 @@
       "ConnectionString": "${SlackNotificationsConnString}:[AzureTableStorage]",
       "QueueName": "slack-notifications"
     },
-    "ThrottlingLimitSeconds": 60
+    "ThrottlingLimitSeconds": ${SlackNotificationsThrottlingLimit}
   },
   "MonitoringServiceClient": {
     "MonitoringServiceUrl": "${MonitoringServiceUrl}"
