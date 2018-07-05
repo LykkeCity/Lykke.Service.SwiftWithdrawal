@@ -1,0 +1,27 @@
+﻿{
+  "SwiftWithdrawalService": {
+    "Db": {
+      "LogsConnString": "${LogsConnString}:[AzureTableStorage]",
+      "BalancesInfoConnString": "${BalancesInfoConnString}:[AzureTableStorage]",
+      "ClientPersonalInfoConnString": "${PersonalInfoConnString}:[AzureTableStorage]"
+    },
+    "DefaultWithdrawalLimit": ${SwiftWithdrawalService-DefaultWithdrawalLimit},
+    "Cqrs": {
+      "RabbitConnectionString": "${CqrsRabbitConnString}:[RabbitMq]"
+    }
+  },
+  "PersonalDataServiceClient": {
+    "ServiceUri": "${PersonalDataServiceUrl}",
+    "ApiKey": "${PersonalDataApiKey}"
+  },
+  "SlackNotifications": {
+    "AzureQueue": {
+      "ConnectionString": "${SlackNotificationsConnString}:[AzureTableStorage]",
+      "QueueName": "slack-notifications"
+    },
+    "ThrottlingLimitSeconds": 60
+  },
+  "MonitoringServiceClient": {
+    "MonitoringServiceUrl": "${MonitoringServiceUrl}"
+  }
+}

@@ -30,7 +30,7 @@ namespace Lykke.Service.SwiftWithdrawal.Modules
         protected override void Load(ContainerBuilder builder)
         {
             Messaging.Serialization.MessagePackSerializerFactory.Defaults.FormatterResolver = MessagePack.Resolvers.ContractlessStandardResolver.Instance;
-            var rabbitMqSagasSettings = new RabbitMQ.Client.ConnectionFactory { Uri = _settings.CurrentValue.SagasRabbitMq.RabbitConnectionString };
+            var rabbitMqSagasSettings = new RabbitMQ.Client.ConnectionFactory { Uri = _settings.CurrentValue.SwiftWithdrawalService.Cqrs.RabbitConnectionString };
 
             builder.Register(context => new AutofacDependencyResolver(context)).As<IDependencyResolver>();
 
