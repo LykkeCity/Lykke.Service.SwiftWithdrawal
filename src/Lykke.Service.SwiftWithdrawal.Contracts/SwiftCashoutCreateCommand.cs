@@ -16,6 +16,8 @@ namespace Lykke.Service.SwiftWithdrawal.Contracts
 
         public decimal Volume { get; set; }
 
+        public decimal FeeSize { get; set; }
+
         public string AccountId { get; set; }
 
         public TransactionState State { get; set; }

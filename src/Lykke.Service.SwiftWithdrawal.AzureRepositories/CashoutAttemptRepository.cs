@@ -61,6 +61,7 @@ namespace Lykke.Service.SwiftWithdrawal.AzureRepositories
             {
                 AssetId = request.AssetId,
                 Amount = request.Amount,
+                FeeSize = request.FeeSize,
                 ClientId = request.ClientId,
                 PaymentSystem = paymentSystem,
                 PaymentFields = paymentFields.ToJson(),

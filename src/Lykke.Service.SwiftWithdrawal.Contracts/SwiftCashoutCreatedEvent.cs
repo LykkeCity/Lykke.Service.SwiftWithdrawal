@@ -16,6 +16,8 @@ namespace Lykke.Service.SwiftWithdrawal.Contracts
 
         public decimal Volume { get; set; }
 
+        public decimal FeeSize { get; set; }
+
         public CashoutRequestTradeSystem TradeSystem { get; set; }
 
         public CashoutVolumeSize VolumeSize { get; set; }

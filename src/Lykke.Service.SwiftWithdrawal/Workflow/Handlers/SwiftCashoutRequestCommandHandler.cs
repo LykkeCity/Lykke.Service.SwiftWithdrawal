@@ -26,12 +26,14 @@ namespace Lykke.Service.SwiftWithdrawal.Workflow.Handlers
         public async Task<CommandHandlingResult> Handle(SwiftCashoutCreateCommand command, IEventPublisher eventPublisher)
         {
             var amount = (double)command.Volume;
+            var feeSize = (double)command.FeeSize;
 
             var model = new SwiftCashOutRequest
             {
                 ClientId = command.ClientId,
                 AssetId = command.AssetId,
                 Amount = amount,
+                FeeSize = feeSize,
                 AccountId = command.AccountId,
                 State = command.State,
                 Status = CashoutRequestStatus.Pending,
@@ -45,6 +47,7 @@ namespace Lykke.Service.SwiftWithdrawal.Workflow.Handlers
                 eventPublisher.PublishEvent(new SwiftCashoutCreatedEvent
                 {
                     Volume = command.Volume,
+                    FeeSize = command.FeeSize,
                     AssetId = command.AssetId,
                     ClientId = command.ClientId,
                     TradeSystem = command.TradeSystem,
