@@ -8,6 +8,7 @@ using Lykke.Cqrs;
 using Lykke.Cqrs.Configuration;
 using Lykke.Messaging;
 using Lykke.Messaging.RabbitMq;
+using Lykke.Messaging.Serialization;
 using Lykke.Service.SwiftWithdrawal.Contracts;
 using Lykke.Service.SwiftWithdrawal.Settings;
 using Lykke.Service.SwiftWithdrawal.Workflow.Handlers;
@@ -43,7 +44,7 @@ namespace Lykke.Service.SwiftWithdrawal.Modules
 
             var sagasEndpointResolver = new RabbitMqConventionEndpointResolver(
                 "SagasRabbitMq",
-                "messagepack",
+                SerializationFormat.MessagePack,
                 environment: "lykke",
                 exclusiveQueuePostfix: "k8s");
 

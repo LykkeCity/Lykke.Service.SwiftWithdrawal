@@ -32,6 +32,8 @@ SlackNotifications:
                 - AzureTableStorage
         QueueName:
             settings-key: SlackQueueName
+    ThrottlingLimitSeconds:
+        settings-key: SlackNotificationsThrottlingLimit
 MonitoringServiceClient:
     MonitoringServiceUrl:
         settings-key: MonitoringServiceUrl
