@@ -1,0 +1,37 @@
+SwiftWithdrawalService:
+    Db:
+        LogsConnString:
+            settings-key: LogsConnString
+            types:
+                - AzureTableStorage
+        BalancesInfoConnString:
+            settings-key: BalancesInfoConnString
+            types:
+                - AzureTableStorage
+        ClientPersonalInfoConnString:
+            settings-key: PersonalInfoConnString
+            types:
+                - AzureTableStorage
+    DefaultWithdrawalLimit:
+        settings-key: SwiftWithdrawalService-DefaultWithdrawalLimit
+    Cqrs:
+        RabbitConnectionString:
+            settings-key: CqrsRabbitConnString
+            types:
+                - RabbitMq
+PersonalDataServiceClient:
+    ServiceUri:
+        settings-key: PersonalDataServiceUrl
+    ApiKey:
+        settings-key: PersonalDataApiKey
+SlackNotifications:
+    AzureQueue:
+        ConnectionString:
+            settings-key: SlackNotificationsConnString
+            types:
+                - AzureTableStorage
+        QueueName:
+            settings-key: SlackQueueName
+MonitoringServiceClient:
+    MonitoringServiceUrl:
+        settings-key: MonitoringServiceUrl
